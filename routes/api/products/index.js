@@ -5,6 +5,7 @@ const router = require("express").Router();
 // const router = express.Router();
 
 const getAllProducts = require("./get_all");
+const getProductDetails = require("./get_details");
 
 // Routes for /api/products
 // GET request: /api/products/

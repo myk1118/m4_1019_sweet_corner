@@ -4,9 +4,7 @@
   "description": "Backend for Sweet Corner e-commerce site",
   "main": "server.js",
   "scripts": {
-    "dev": "npm-run-all --parallel dev:*",
-    "dev:server": "nodemon server.js",
-    "dev:client": "npm start --prefix client",
+    "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

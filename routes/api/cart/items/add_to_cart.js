@@ -1,4 +1,6 @@
 const db = require("../../../../db");
+const cartJwt = require("../../../../config/cart_jwt.json");
+const jwt = require("jwt-simple");
 
 module.exports = async (req, res) => {
     // Check for existing cart
@@ -8,6 +10,7 @@ module.exports = async (req, res) => {
     let {
         cart
     } = req;
+    let token = null;
 
     // Checking if product_id is valid
     const [
@@ -28,6 +31,11 @@ module.exports = async (req, res) => {
         cart = {
             id: result.insertId
         };
+        const tokenData = {
+            cartId: cart.id,
+            ts: Date.now()
+        };
+        token = jwt.encode(tokenData, cartJwt.secret);
     }
 
     // Does item already exist in cart?
@@ -51,6 +59,7 @@ module.exports = async (req, res) => {
     const message = `1 ${product.name} added to cart`;
 
     res.send({
+        cartToken: token,
         message: message
     });
 }

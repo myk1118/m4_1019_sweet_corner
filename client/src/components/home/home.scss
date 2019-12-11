@@ -1,0 +1,36 @@
+.homeTop {
+    background-image: url("../../assets/images/strips2.png");
+    background-repeat: repeat-y;
+    background-position: right;
+}
+
+.homeTextContainer {
+    width: 62%;
+    padding: 36px;
+
+    :nth-child(1) {
+        margin-top: 0;
+    }
+}
+
+.dotsBox2 {
+    float: right;
+    position: relative;
+    top: 24px;
+    right: 24px;
+}
+
+.homeTitle,
+.sweetContent {
+    font-family: sail;
+}
+
+.homeBody {
+    line-height: 16pt;
+}
+
+.homeTitle,
+.sweetContent,
+.homeBody {
+    color: #be7e3e;
+}

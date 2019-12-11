@@ -1,0 +1,29 @@
+@font-face {
+    font-family: gothamBook;
+    src: url('../../assets/fonts/Gotham-Book.otf')
+}
+
+@font-face {
+    font-family: gothamMedium;
+    src: url('../../assets/fonts/Gotham-Medium.otf')
+}
+
+@font-face {
+    font-family: sail;
+    src: url('../../assets/fonts/Sail-Regular.ttf')
+}
+
+.app {
+    .center {
+        text-align: center;
+    }
+
+    .container {
+        margin: 0 auto;
+        width: 1000px;
+    }
+}
+
+body {
+    font-family: gothamBook
+}

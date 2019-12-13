@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "node dev_server.js",
-    "bundle": "webpack --config webpack.prod.js --progress",
+    "build": "webpack --config webpack.prod.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jaime Kim",
@@ -61,7 +61,7 @@
     "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.41.0",
+    "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2",
     "webpack-merge": "^4.2.2"

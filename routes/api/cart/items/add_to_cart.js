@@ -1,5 +1,9 @@
 const db = require("../../../../db");
 const cartJwt = require("../../../../config/cart_jwt.json");
+const {
+    buildUrl,
+    getCartTotals
+} = require("../../../../helpers");
 const jwt = require("jwt-simple");
 
 module.exports = async (req, res) => {
@@ -7,10 +11,18 @@ module.exports = async (req, res) => {
     const {
         product_id
     } = req.params;
+    const {
+        quantity = 1
+    } = req.body;
     let {
-        cart
+        cart,
+        token
     } = req;
-    let token = null;
+
+    if (isNaN(quantity) || quantity < 1) {
+        res.status(422).send("Invalid quantity received");
+        return;
+    }
 
     // Checking if product_id is valid
     const [
@@ -46,20 +58,52 @@ module.exports = async (req, res) => {
     // If product already in cart, increase quantity
     if (cartItem) {
         // Increase the quantity of the existing cartItem
+        await db.execute("UPDATE cartItems SET quantity=quantity + ? WHERE id=?", [quantity, cartItem.id]);
     } else {
         // Else, create cart item for product
         const [itemResult] = await db.execute(`
         INSERT INTO cartItems 
         (pid, cartId, productId, quantity)
         VALUES (UUID(), ?, ?, ?)
-        `, [cart.id, product.id, 1]);
+        `, [cart.id, product.id, quantity]);
+    }
+
+    const [
+        [cartData]
+    ] = await db.query(`
+    SELECT c.pid AS cartId, ci.pid AS itemId, p.pid AS productId, p.cost AS \`each\`, 
+    ci.quantity, (cost * quantity) AS total, ci.createdAt AS added, p.name, 
+    i.altText, i.type, i.file FROM cartItems AS ci 
+	JOIN cart AS c ON ci.cartId=c.id
+    JOIN products AS p ON ci.productId=p.id
+    JOIN images AS i ON i.productId=p.id
+    WHERE cartId=? AND ci.productId=? AND i.type="thumbnail"
+    `, [cart.id, product.id]);
+
+    console.log("Cart Data: ", cartData);
+
+    const {
+        cartId,
+        altText,
+        file,
+        type,
+        ...item
+    } = cartData;
+
+    item.thumbnail = {
+        altText: altText,
+        url: buildUrl(req, type, file)
     }
 
     // Create a message to send back to user of what was added
-    const message = `1 ${product.name} added to cart`;
+    const message = `${quantity} ${product.name} added to cart`;
+
+    const total = await getCartTotals(cart.id);
 
     res.send({
         cartToken: token,
+        cartId: cartId,
+        item: item,
         message: message
     });
 }

@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const cartRouter = require("./cart");
 const productsRouter = require("./products");
-// const cartRouter = require("./cart");
-// const userRouter = require("./user");
+const withCart = require("../../middleware/with_cart");
 
 // Routes for /api
 
@@ -10,9 +9,6 @@ const productsRouter = require("./products");
 router.use("/products", productsRouter);
 
 // ALL METHODS /api/cart
-router.use("/cart", cartRouter);
-
-// ALL METHODS /api/user
-// router.use("/user", userRouter);
+router.use("/cart", withCart, cartRouter);
 
 module.exports = router;

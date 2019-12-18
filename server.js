@@ -8,6 +8,10 @@ const routes = require("./routes");
 
 const app = express();
 
+app.use(express.urlencoded({
+    extended: false
+}));
+
 app.use(routes);
 
 // sample product id: 6145a47a-13cb-11ea-8574-0242ac120002

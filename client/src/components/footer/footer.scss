@@ -1,0 +1,34 @@
+.blueBar {
+    height: 80px;
+    background-color: #06b4af;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.dotsFooter {
+    position: absolute;
+    left: 5%;
+}
+
+.copyright,
+.phoneNumber {
+    color: white;
+}
+
+.copyright {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.phone {
+    display: flex;
+    position: absolute;
+    right: 5%;
+}
+
+.phoneIcon {
+    margin-right: 12px;
+    height: max-content;
+}

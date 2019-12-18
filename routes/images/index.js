@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Routes /images
+
 // GET /images/:type/:file
 router.get('/:type/:file', (req, res) => {
     const {

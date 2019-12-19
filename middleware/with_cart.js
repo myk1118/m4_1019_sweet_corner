@@ -5,7 +5,10 @@ module.exports = (req, res, next) => {
     const token = req.headers["x-cart-token"];
     req.cart = null;
     req.token = null;
-    if (!token) {
+
+    // token = "[object Object]";
+
+    if (!token || token.indexOf("object") > -1) {
         next();
         return;
     }

@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+    useState,
+    useEffect
+} from 'react';
 import './schedule.scss';
 import axios from 'axios';
 
 const getSchedule = async () => {
     try {
-        const response = await axios.get('http://localhost:3000/data/schedule.json');
+        const response = await axios.get('/data/schedule.json');
         console.log("Response Line 8: ", response);
         if (response.error) {
             throw response.error;
@@ -29,16 +32,25 @@ export default () => {
             })
     }, []);
     console.log("Schedule Line 31: ", schedule);
-    return (
-        <div>
-            {
-                schedule.map(v => (
-                    <div key={v.pid} className="schedule">
-                        <div className="day">{v.day}</div>
-                        <div className="time">{v.open} - {v.close}</div>
-                    </div>
-                ))
-            }
-        </div>
+    return ( <
+        div > {
+            schedule.map(v => ( <
+                div key = {
+                    v.pid
+                }
+                className = "schedule" >
+                <
+                div className = "day" > {
+                    v.day
+                } < /div> <
+                div className = "time" > {
+                    v.open
+                } - {
+                    v.close
+                } < /div> < /
+                div >
+            ))
+        } <
+        /div>
     );
 }
